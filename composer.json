@@ -2,7 +2,7 @@
   "name": "notifea/notifea-php-laravel",
   "type": "library",
   "homepage": "https://notifea.com",
-  "description": "Laravel wrapper for PHP repository for using Notifea services.",
+  "description": "Laravel wrapper for PHP language for Notifea services.",
   "keywords": [
     "emails",
     "email-sending",
@@ -55,11 +55,8 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Notifea\\Laravel\\NotifeaServiceProvider"
-      ],
-      "aliases": {
-        "Notifea": "Notifea\\Laravel\\Facades\\Notifea"
-      }
+        "Notifea\\Laravel\\Providers\\NotifeaServiceProvider"
+      ]
     }
   },
   "config": {
