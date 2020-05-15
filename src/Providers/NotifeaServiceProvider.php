@@ -4,7 +4,7 @@ namespace Notifea\Laravel\Providers;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Lumen\Application as Lumen;
+use Illuminate\Support\Str;
 use Notifea\Services\EmailService;
 use Notifea\Services\SmsService;
 
@@ -23,14 +23,15 @@ class NotifeaServiceProvider extends ServiceProvider implements DeferrableProvid
      */
     public function boot()
     {
-        $this->publishes([
-            __DIR__.'/../config/notifea.php' => config_path(self::$globalName . '.php'),
-        ]);
+        if (!$this->isLumen()) {
+            $configPath = __DIR__.'/../config/' . self::$globalName . '.php';
+            $this->publishes([$configPath => config_path(self::$globalName . '.php')], 'config');
+        }
     }
 
     public function register()
     {
-        if ($this->app instanceof Lumen) {
+        if ($this->isLumen()) {
             $this->app->configure(self::$globalName);
         }
 
@@ -53,6 +54,16 @@ class NotifeaServiceProvider extends ServiceProvider implements DeferrableProvid
             );
         });
         $this->app->alias(SmsService::class, self::$smsFacadeName);
+    }
+
+    /**
+     * Check if package is running under Lumen app
+     *
+     * @return bool
+     */
+    protected function isLumen()
+    {
+        return Str::contains($this->app->version(), 'Lumen') === true;
     }
 
     /**
