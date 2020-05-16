@@ -4,18 +4,18 @@ namespace Notifea\Laravel\Facades;
 
 use Illuminate\Support\Facades\Facade;
 use Notifea\Collections\Collection;
-use Notifea\Entities\Sms;
+use Notifea\Entities\Sms as SmsEntity;
 
 /**
- * Class NotifeaSms
+ * Class SMS
  * @package Notifea\Laravel\Facades
  *
  * @method static Collection getSmss()
- * @method static Sms getSms(string $emailUuid)
- * @method static Sms sendSms(Sms $email)
+ * @method static SmsEntity getSms(string $emailUuid)
+ * @method static SmsEntity sendSms(SmsEntity $email)
  * @method static bool deleteSms(string $emailUuid)
  */
-class NotifeaSms extends Facade
+class SMS extends Facade
 {
 
     /**

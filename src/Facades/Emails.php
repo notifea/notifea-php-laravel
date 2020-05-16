@@ -7,7 +7,7 @@ use Notifea\Collections\Collection;
 use Notifea\Entities\Email;
 
 /**
- * Class NotifeaEmails
+ * Class Emails
  * @package Notifea\Laravel\Facades
  *
  * @method static Collection getEmails()
@@ -15,7 +15,7 @@ use Notifea\Entities\Email;
  * @method static Email sendEmail(Email $email)
  * @method static bool deleteEmail(string $emailUuid)
  */
-class NotifeaEmails extends Facade
+class Emails extends Facade
 {
 
     /**
