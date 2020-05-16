@@ -34,7 +34,50 @@ This package will require you to use:
 
 ## Usage
 
-TBA
+This packages provides a convenient dependency injection layer
+for `Notifea\Services\EmailService` and `Notifea\Services\SmsService` implemented in our core [Notifea PHP package](https://github.com/notifea/notifea-php) so they can be easily used anywhere in
+your Laravel application.
+
+One could inject them like this:
+
+```php
+class UserController
+{
+    public function sendEmail(Request $request, EmailService $emailService)
+    {
+        // .. your business logic
+        $email = new Email();
+        // ... 
+        $sentEmail = $emailService->sendEmail($email);
+    }
+
+    public function sendSms(Request $request, SmsService $smsService)
+    {
+        // .. your business logic
+        $sms = new Sms();
+        // ... 
+        $sentSms = $smsService->sendSms($sms);
+    }
+
+}
+```
+
+To provide the quick accessibility of the methods anywhere in your code, there is also
+`Notifea\Laravel\Facades\Emails` and `Notifea\Laravel\Facades\SMS` facade available to you.
+
+`Emails` facade contains these methods:
+- getEmails()
+- getEmail(string $emailUuid)
+- sendEmail(Email $email)
+- deleteEmail(string $emailUuid)
+
+`SMS` facade contains these methods:
+- getSmss()
+- getSms(string $smsUuid)
+- sendSms(Sms $sms)
+- deleteSms(string $smsUuid)
+
+To find more detailed documentation about each methods, check out our core [Notifea PHP package](https://github.com/notifea/notifea-php)
 
 ## Community
 
