@@ -5,6 +5,7 @@ namespace Notifea\Laravel\Providers;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Notifea\Clients\NotifeaClient;
 use Notifea\Services\EmailService;
 use Notifea\Services\SmsService;
 
@@ -35,22 +36,25 @@ class NotifeaServiceProvider extends ServiceProvider implements DeferrableProvid
             $this->app->configure(self::$globalName);
         }
 
-        $this->app->singleton(EmailService::class, function($app) {
-            return new EmailService(
+        $this->app->singleton(NotifeaClient::class, function() {
+            return new NotifeaClient(
                 config('notifea.api_host'),
                 config('notifea.authorization'),
                 config('notifea.connect_timeout'),
                 config('notifea.timeout')
             );
         });
+
+        $this->app->singleton(EmailService::class, function($app) {
+            return new EmailService(
+                $app->get(NotifeaClient::class)
+            );
+        });
         $this->app->alias(EmailService::class, self::$emailFacadeName);
 
         $this->app->singleton(SmsService::class, function($app) {
             return new SmsService(
-                config('notifea.api_host'),
-                config('notifea.authorization'),
-                config('notifea.connect_timeout'),
-                config('notifea.timeout')
+                $app->get(NotifeaClient::class)
             );
         });
         $this->app->alias(SmsService::class, self::$smsFacadeName);
