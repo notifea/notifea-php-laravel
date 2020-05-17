@@ -4,7 +4,7 @@ return [
     // There is no need to modify NOTIFEA_API_HOST in most cases
     'api_host' => env('NOTIFEA_API_HOST', 'https://api.notifea.com'),
     // Get access token from notifea user interface
-    'authorization' => env('NOTIFEA_API_ACCESS_TOKEN'),
+    'authorization' => env('NOTIFEA_API_AUTHORIZATION'),
     // how long can the package wait until host is resolved
     'connect_timeout' => env('NOTIFEA_CONNECT_TIMEOUT', 10),
     // how long will the client wait for the response after successful connection
