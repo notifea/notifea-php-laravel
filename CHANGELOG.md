@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 1.1.0
+
+- Added support for laravel framework 8
+
 ## 1.0.1
 
 - Added CHANGELOG.md
