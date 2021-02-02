@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 1.1.1
+
+- Updated significant release operator
+
 ## 1.1.0
 
 - Added support for laravel framework 8
