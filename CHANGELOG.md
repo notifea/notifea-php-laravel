@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 1.1.2
+
+- updated notifea php version
+- updated contact email
+- updated NOTIFEA_API_HOST
+- updated readme
+
 ## 1.1.1
 
 - Updated significant release operator
