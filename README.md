@@ -6,8 +6,6 @@ and sms to their users.
 
 This package is a Laravel wrapper for [Notifea PHP package](https://github.com/notifea/notifea-php).
 
-**Please note that our services are in alpha phase and are not yet available to public.** 
-
 ## Minimum requirements
 
 This package will require you to use:
