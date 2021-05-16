@@ -11,6 +11,7 @@ This package is a Laravel wrapper for [Notifea PHP package](https://github.com/n
 This package will require you to use:
 - PHP 7.0 or higher
 - [guzzlehttp/guzzle](https://github.com/guzzle/guzzle) 6.0 or higher 
+- ext-json
 
 ## Installation
 
@@ -48,7 +49,7 @@ to file `config/app.php` to the section `providers`
 ## Usage
 
 This packages provides a convenient dependency injection layer
-for `Notifea\Services\EmailService` and `Notifea\Services\SmsService` implemented in our 
+for `Notifea\Services\EmailService`, `Notifea\Services\SmsService` and `Notifea\Services\SmsSenderService` implemented in our 
 core [Notifea PHP package](https://github.com/notifea/notifea-php) so they can be easily used anywhere in
 your Laravel application.
 
@@ -72,12 +73,21 @@ class UserController
         // ... 
         $sentSms = $smsService->sendSms($sms);
     }
+    
+    public function createSmsSender(Request $request, SmsSenderService $smsSenderService)
+    {
+        // .. your business logic
+        $smsSender = new SmsSender();
+        // ... 
+        $createdSmsSender = $smsSenderService->createSmsSender($smsSender);
+    }
 
 }
 ```
 
 To provide the quick accessibility of the methods anywhere in your code, there is also
-`Notifea\Laravel\Facades\Emails` and `Notifea\Laravel\Facades\SMS` facade available to you.
+`Notifea\Laravel\Facades\Emails`, `Notifea\Laravel\Facades\SMS` and `Notifea\Laravel\Facades\SmsSender`
+facade available to you.
 
 `Emails` facade contains these methods:
 - getEmails()
@@ -90,6 +100,13 @@ To provide the quick accessibility of the methods anywhere in your code, there i
 - getSms(string $smsUuid)
 - sendSms(Sms $sms)
 - deleteSms(string $smsUuid)
+
+`SmsSender` facade contains these methods:
+- getSmsSenders()
+- getSmsSender(string $smsSenderUuid)
+- createSmsSender(SmsSender $smsSender)
+- updateSmsSender(SmsSender $smsSender)
+- deleteSmsSender(string $smsSenderUuid)
 
 To find more detailed documentation about each methods, check out our core [Notifea PHP package](https://github.com/notifea/notifea-php)
 

@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Notifea\Clients\NotifeaClient;
 use Notifea\Services\EmailService;
+use Notifea\Services\SmsSenderService;
 use Notifea\Services\SmsService;
 
 class NotifeaServiceProvider extends ServiceProvider implements DeferrableProvider
@@ -16,6 +17,7 @@ class NotifeaServiceProvider extends ServiceProvider implements DeferrableProvid
 
     public static $emailFacadeName = 'notifea-emails';
     public static $smsFacadeName = 'notifea-sms';
+    public static $smsSendersFacadeName = 'notifea-sms-senders';
 
     /**
      * Bootstrap any application services.
@@ -45,6 +47,7 @@ class NotifeaServiceProvider extends ServiceProvider implements DeferrableProvid
             );
         });
 
+        // emails
         $this->app->singleton(EmailService::class, function($app) {
             return new EmailService(
                 $app->get(NotifeaClient::class)
@@ -52,12 +55,21 @@ class NotifeaServiceProvider extends ServiceProvider implements DeferrableProvid
         });
         $this->app->alias(EmailService::class, self::$emailFacadeName);
 
+        // sms
         $this->app->singleton(SmsService::class, function($app) {
             return new SmsService(
                 $app->get(NotifeaClient::class)
             );
         });
         $this->app->alias(SmsService::class, self::$smsFacadeName);
+
+        // sms senders
+        $this->app->singleton(SmsSenderService::class, function($app) {
+            return new SmsSenderService(
+                $app->get(NotifeaClient::class)
+            );
+        });
+        $this->app->alias(SmsSenderService::class, self::$smsSendersFacadeName);
     }
 
     /**
@@ -80,8 +92,10 @@ class NotifeaServiceProvider extends ServiceProvider implements DeferrableProvid
         return [
             EmailService::class,
             SmsService::class,
+            SmsSenderService::class,
             self::$emailFacadeName,
             self::$smsFacadeName,
+            self::$smsSendersFacadeName
         ];
     }
 
